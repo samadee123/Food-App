@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.myapplication.Adapter.CartAdapter;
+import com.example.myapplication.Helper.ChangeNumberItemsListener;
 import com.example.myapplication.Helper.ManagmentCart;
 import com.example.myapplication.R;
 import com.example.myapplication.databinding.ActivityCartBinding;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends BaseActivity {
 
     private ActivityCartBinding binding;
     private RecyclerView.Adapter adapter;
@@ -40,9 +42,11 @@ public class CartActivity extends AppCompatActivity {
             binding.scrollviewCart.setVisibility(View.VISIBLE);
         }
 
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         binding.cardView.setLayoutManager(linearLayoutManager);
-        adapter=
+        adapter=new CartAdapter(managmentCart.getListCart(), this, () -> calculateCart());
+
+        binding.cardView.setAdapter(adapter);
     }
 
     private void calculateCart() {
